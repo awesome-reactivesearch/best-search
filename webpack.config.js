@@ -1,43 +1,60 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = (env) => {
-  const config = {
-    output: {
-      path: path.join(__dirname, "/build"), // the bundle output path
-      filename: "main.js", // the name of the bundle
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: "public/index.html", // to import index.html file inside index.js
-      }),
-    ],
-    devServer: {
-      port: 3030, // you can change the port
-    },
-    module: {
-      rules: [
-        {
-          test: /\.(js|jsx)$/, // .js and .jsx files
-          exclude: /node_modules/, // excluding the node_modules folder
-          use: {
-            loader: "babel-loader",
-          },
-        },
-        {
-          test: /\.(sa|sc|c)ss$/, // styles files
-          use: ["style-loader", "css-loader", "sass-loader"],
-        },
-        {
-          test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
-          loader: "url-loader",
-          options: { limit: false },
-        },
-      ],
-    },
-  };
+const isProduction = process.env.NODE_ENV == "production";
 
-  if (env.library) {
+const stylesHandler = "style-loader";
+
+const config = {
+  entry: "./src/index.js",
+  output: {
+    path: path.join(__dirname, "/build"), // the bundle output path
+  },
+  devServer: {
+    open: true,
+    host: "localhost",
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "public/index.html",
+    }),
+
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/i,
+        loader: "babel-loader",
+      },
+      {
+        test: /\.css$/i,
+        use: [stylesHandler, "css-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [stylesHandler, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: "asset",
+      },
+
+      // Add your rules for custom modules here
+      // Learn more about loaders from https://webpack.js.org/loaders/
+    ],
+  },
+};
+
+module.exports = (env) => {
+  if (isProduction) {
+    config.mode = "production";
+  } else {
+    config.mode = "development";
+  }
+
+  if (env.library === "true") {
     delete config.plugins;
     delete config.devServer;
 
@@ -51,6 +68,7 @@ module.exports = (env) => {
         type: "umd",
       },
     };
+
     config.externals = {
       // Don't bundle react or react-dom
       react: {
@@ -67,6 +85,5 @@ module.exports = (env) => {
       },
     };
   }
-
   return config;
 };
