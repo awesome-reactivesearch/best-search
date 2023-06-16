@@ -1,0 +1,21 @@
+/* Utilities */
+.h-100vh {
+  height: 100vh;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+/* 
+visible-sm: Should have visibility for sm and  
+*/
+.hidden-sm {
+  visibility: visible;
+}
+.visible-md {
+  visibility: visible;
+}
+@media (max-width: 576px) {
+  .hidden-sm {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,52 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "bootstrap/scss/variables";
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+.bootstrap {
+  // 4. Include any default map overrides here
+
+  // 5. Include remainder of required parts
+  @import "bootstrap/scss/nav";
+  @import "bootstrap/scss/navbar";
+  @import "bootstrap/scss/buttons";
+  @import "bootstrap/scss/dropdown";
+
+  // 6. Optionally include any other parts as needed
+  @import "bootstrap/scss/utilities";
+  @import "bootstrap/scss/reboot";
+  @import "bootstrap/scss/type";
+  @import "bootstrap/scss/images";
+  @import "bootstrap/scss/containers";
+  @import "bootstrap/scss/grid";
+  @import "bootstrap/scss/helpers";
+
+  // Reset some styles inside. Can see reboot.scss for reference
+  margin: 0; // 1
+  font-family: var(--bs-body-font-family);
+  font-weight: var(--bs-body-font-weight);
+  line-height: var(--bs-body-line-height);
+  color: var(--bs-body-color);
+  text-align: var(--bs-body-text-align);
+  background-color: var(--bs-body-bg); // 2
+  -webkit-text-size-adjust: 100%; // 3
+  -webkit-tap-highlight-color: rgba($black, 0); // 4
+
+  // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+  @import "bootstrap/scss/utilities/api";
+}
+
+@import "bootstrap/scss/popover";
+
+// Reset some styles for popover
+.popover-header {
+  margin-top: 0px;
+}
