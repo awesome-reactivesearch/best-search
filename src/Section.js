@@ -27,8 +27,13 @@ function getIcon(url) {
   if (url.match("/docs/speed")) {
     return (
       <BsLightningChargeFill
-        color="yellow"
         size={50}
+        style={{
+          color: "#faff00",
+          background: "lightslategray",
+          padding: "5px",
+          borderRadius: "5px",
+        }}
         className={styles.sectionItemIcon}
       />
     );
