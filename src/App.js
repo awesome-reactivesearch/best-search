@@ -71,13 +71,12 @@ function Main() {
           // handle when no search value is there. The component is making a suggestion query
           if (componentQuery.id === RESULT_COMPONENT_ID) {
             const searchQuery = body.query.find(
-              (cQ) =>
-                cQ.id === SEARCH_COMPONENT_ID &&
-                cQ.type === "suggestion" &&
-                showAllResults &&
-                !cQ.value
+              (cQ) => cQ.id === SEARCH_COMPONENT_ID
             );
-            if (searchQuery) {
+            if (
+              (searchQuery && !searchQuery.value && showAllResults) ||
+              (!searchQuery && showAllResults)
+            ) {
               return {
                 ...componentQuery,
                 distinctField: "source.keyword",
@@ -148,49 +147,71 @@ function Main() {
           react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
           dataField="title"
           showResultStats={false}
+          pagination
+          size={12}
+          className="my-3"
         >
           {({ rawData }) => {
             if (rawData) {
               const hits = rawData.hits && rawData.hits.hits;
+              const hasSections = hits && hits[0] && hits[0].inner_hits;
               if (hits) {
-                const sortedHits = hits.sort((a, b) => {
-                  const sourceA = a.fields && a.fields["source.keyword"][0];
-                  const sourceB = b.fields && b.fields["source.keyword"][0];
-                  const orderA = sectionOrder[sourceA];
-                  const orderB = sectionOrder[sourceB];
-                  return orderA - orderB;
-                });
-                return (
-                  <>
-                    {sortedHits.map((hit) => {
-                      const sectionTitle =
-                        hit.fields && hit.fields["source.keyword"][0];
-                      const sectionItems =
-                        (hit.inner_hits &&
-                          hit.inner_hits.most_rel &&
-                          hit.inner_hits.most_rel.hits.hits) ||
-                        [];
+                if (hasSections) {
+                  const sortedHits = hits.sort((a, b) => {
+                    const sourceA = a.fields && a.fields["source.keyword"][0];
+                    const sourceB = b.fields && b.fields["source.keyword"][0];
+                    const orderA = sectionOrder[sourceA];
+                    const orderB = sectionOrder[sourceB];
+                    return orderA - orderB;
+                  });
+                  return (
+                    <>
+                      {sortedHits.map((hit) => {
+                        const sectionTitle =
+                          hit.fields && hit.fields["source.keyword"][0];
+                        const sectionItems =
+                          (hit.inner_hits &&
+                            hit.inner_hits.most_rel &&
+                            hit.inner_hits.most_rel.hits.hits) ||
+                          [];
 
-                      return (
-                        <div key={sectionTitle}>
-                          <h1 className="my-4 text-capitalize">
-                            {sectionTitle}
-                          </h1>
-                          <Section
-                            sectionItems={sectionItems}
-                            columns={sectionTitle === "blog" ? 3 : 2}
-                            placeholderImage={
-                              sectionTitle === "blog" ? placeholderImage : null
-                            }
-                            showIcon={sectionTitle === "docs"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </>
-                );
+                        return (
+                          <div key={sectionTitle}>
+                            <h1 className="my-4 text-capitalize">
+                              {sectionTitle}
+                            </h1>
+                            <Section
+                              sectionItems={sectionItems}
+                              columns={sectionTitle !== "website" ? 3 : 2}
+                              placeholderImage={
+                                sectionTitle === "blog"
+                                  ? placeholderImage
+                                  : null
+                              }
+                              showIcon={sectionTitle === "docs"}
+                            />
+                          </div>
+                        );
+                      })}
+                    </>
+                  );
+                } else {
+                  const source = hits && hits[0] && hits[0]._source;
+                  const sectionTitle = source.source;
+                  return (
+                    <Section
+                      sectionItems={hits}
+                      columns={sectionTitle !== "website" ? 3 : 2}
+                      placeholderImage={
+                        sectionTitle === "blog" ? placeholderImage : null
+                      }
+                      showIcon={sectionTitle === "docs"}
+                    />
+                  );
+                }
               }
             }
+
             return null;
           }}
         </ReactiveList>
