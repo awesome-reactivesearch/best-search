@@ -197,7 +197,7 @@ function Main() {
                   );
                 } else {
                   const source = hits && hits[0] && hits[0]._source;
-                  const sectionTitle = source.source;
+                  const sectionTitle = source && source.source;
                   return (
                     <Section
                       sectionItems={hits}

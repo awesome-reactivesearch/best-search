@@ -76,7 +76,7 @@ export const Section = ({
         const Icon = showIcon && getIcon(source.url);
 
         return (
-          <Col className="mb-3" key={sectionItem._id}>
+          <Col className="mb-5 pe-5" key={sectionItem._id}>
             <div>
               {showIcon ? Icon : null}
               {imageURL || placeholderImage ? (
@@ -90,7 +90,7 @@ export const Section = ({
               <p className={styles.sectionItemDescription}>
                 {source.meta_description || source.heading}
               </p>
-              <div className="d-flex flex-wrap">
+              <div className="d-flex flex-wrap gap-2">
                 {keywords
                   .filter((_, i) => i < 3)
                   .map((keyword) => (
@@ -98,7 +98,7 @@ export const Section = ({
                       key={keyword}
                       pill
                       bg="light"
-                      className="border border-2 border-dark px-2 py-1 me-1"
+                      className="border border-2 border-dark px-2 py-1"
                     >
                       {keyword}
                     </Badge>
