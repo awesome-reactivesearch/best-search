@@ -182,6 +182,7 @@ function Main() {
                             placeholderImage={
                               sectionTitle === "blog" ? placeholderImage : null
                             }
+                            showIcon={sectionTitle === "docs"}
                           />
                         </div>
                       );

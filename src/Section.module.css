@@ -10,3 +10,6 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
+.sectionItemIcon {
+  width: 50px;
+}
