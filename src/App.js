@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Badge, Col, Container, Row } from "react-bootstrap";
 
 import "./custom.scss";
 
@@ -8,6 +8,7 @@ import styles from "./App.module.css";
 
 import "./utility.css";
 import reactivesearchLogo from "./reactivesearch-logo.svg";
+import blogImage from "./blog.jpg";
 
 import { BreakpointProvider } from "./useBreakpoint";
 import {
@@ -40,22 +41,102 @@ function Main() {
             { label: "Docs", value: "docs" },
             { label: "Blog", value: "blog" },
           ]}
+          defaultValue="All"
         />
         <SearchBox
-          dataField={["original_title", "original_title.search"]}
+          dataField={[
+            {
+              field: "title",
+              weight: 3,
+            },
+            {
+              field: "tokens.keyword",
+              weight: 6,
+            },
+            {
+              field: "heading",
+              weight: 6,
+            },
+            {
+              field: "pageURL",
+              weight: 1,
+            },
+          ]}
           componentId="SearchFilter"
           className={styles.searchBox}
           highlight
           URLParams
           size={5}
-          index="good-books-ds"
           showClear
-          onValueSelected={(value, cause) => {
-            // eslint-disable-next-line
-            console.log(value, cause);
-          }}
           renderNoSuggestion="No suggestions found."
         />
+      </Container>
+      <Container>
+        <h1 className="my-4">Website</h1>
+        <Row md={2}>
+          <Col>
+            <div>
+              <img src={blogImage} className={styles.blogImage} />
+              <h5>
+                Get control overSearch & Discovery to reflect your business
+                goals
+              </h5>
+              <div className="text-primary">{`Dashboard > UI Builder`}</div>
+              <p>
+                Our Visual Editor empowers business teams to get control over
+                Search and Discovery, to answer both their user behaviors and
+                business requirements.
+              </p>
+              <div>
+                <Badge
+                  pill
+                  bg="light"
+                  className="border border-2 border-dark px-2 py-1 me-1"
+                >
+                  no code
+                </Badge>
+                <Badge
+                  pill
+                  bg="light"
+                  className="border border-2 border-dark px-2 py-1 me-1"
+                >
+                  dashboard
+                </Badge>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div>
+              <img src={blogImage} className={styles.blogImage} />
+              <h5>
+                Get control overSearch & Discovery to reflect your business
+                goals
+              </h5>
+              <div className="text-primary">{`Dashboard > UI Builder`}</div>
+              <p>
+                Our Visual Editor empowers business teams to get control over
+                Search and Discovery, to answer both their user behaviors and
+                business requirements.
+              </p>
+              <div>
+                <Badge
+                  pill
+                  bg="light"
+                  className="border border-2 border-dark px-2 py-1 me-1"
+                >
+                  no code
+                </Badge>
+                <Badge
+                  pill
+                  bg="light"
+                  className="border border-2 border-dark px-2 py-1 me-1"
+                >
+                  dashboard
+                </Badge>
+              </div>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </ReactiveBase>
   );

@@ -16,12 +16,15 @@
 .resourceFilter a {
   text-decoration: none;
 }
-.searchBox {
-  height: 100px;
-}
 
 .searchBox ol,
 .searchBox ul,
 .searchBox dl {
   padding-left: 0px;
+}
+.blogImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
 }

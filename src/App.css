@@ -9,3 +9,7 @@
 .searchShowcaseTabDropdown .dropdown-menu {
   width: 100%;
 }
+
+.bootstrap li button {
+  margin-left: auto;
+}
