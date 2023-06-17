@@ -188,6 +188,7 @@ function Main() {
                                   ? placeholderImage
                                   : null
                               }
+                              showBreadcrumb={sectionTitle === "docs"}
                               showIcon={sectionTitle === "docs"}
                             />
                           </div>
@@ -205,6 +206,7 @@ function Main() {
                       placeholderImage={
                         sectionTitle === "blog" ? placeholderImage : null
                       }
+                      showBreadcrumb={sectionTitle === "docs"}
                       showIcon={sectionTitle === "docs"}
                     />
                   );

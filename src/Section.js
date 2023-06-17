@@ -66,6 +66,7 @@ export const Section = ({
   sectionItems,
   placeholderImage,
   showIcon,
+  showBreadcrumb,
 }) => {
   return (
     <Row md={columns} sm={1}>
@@ -74,6 +75,30 @@ export const Section = ({
         const imageURL = source.img;
         const keywords = source.keywords || [];
         const Icon = showIcon && getIcon(source.url);
+        let breadcrumb = "";
+        if (showBreadcrumb) {
+          try {
+            let breadcrumbURL = source.url || "";
+            if (breadcrumbURL.includes("http")) {
+              breadcrumbURL = new URL(breadcrumbURL).pathname;
+            }
+            const parts = breadcrumbURL.split("/");
+            const capitalized = parts
+              .map((v) => v.trim())
+              .filter((v) => v)
+              .map((str) => str.charAt(0).toUpperCase() + str.slice(1));
+            const hashElementRemovedArr = capitalized.filter(
+              (v) =>
+                v[0] !== "#" &&
+                !["docs", "reactivesearch", "advanced", "overview"].includes(
+                  v.toLowerCase()
+                )
+            );
+            breadcrumb = hashElementRemovedArr.join(" -> ");
+          } catch {
+            console.log("Failed to parse url");
+          }
+        }
 
         return (
           <Col className="mb-5 pe-5" key={sectionItem._id}>
@@ -86,7 +111,7 @@ export const Section = ({
                 />
               ) : null}
               <h5>{source.title || source.heading || source.meta_title}</h5>
-              <div className="text-primary">{`Dashboard > UI Builder`}</div>
+              <div className="text-primary">{breadcrumb}</div>
               <p className={styles.sectionItemDescription}>
                 {source.meta_description || source.heading}
               </p>
@@ -116,5 +141,6 @@ Section.propTypes = {
   columns: number,
   sectionItems: arrayOf(shape({ _id: string, _source: object })),
   showIcon: bool,
+  showBreadcrumb: bool,
   placeholderImage: string,
 };
