@@ -24,6 +24,12 @@ const RESULT_COMPONENT_ID = "RESULT_LIST";
 
 const ALL_LABEL = "All";
 
+const sectionOrder = {
+  website: 1,
+  blog: 2,
+  docs: 3,
+};
+
 function Main() {
   return (
     <ReactiveBase
@@ -146,9 +152,16 @@ function Main() {
             if (rawData) {
               const hits = rawData.hits && rawData.hits.hits;
               if (hits) {
+                const sortedHits = hits.sort((a, b) => {
+                  const sourceA = a.fields && a.fields["source.keyword"][0];
+                  const sourceB = b.fields && b.fields["source.keyword"][0];
+                  const orderA = sectionOrder[sourceA];
+                  const orderB = sectionOrder[sourceB];
+                  return orderA - orderB;
+                });
                 return (
                   <>
-                    {hits.map((hit) => {
+                    {sortedHits.map((hit) => {
                       const sectionTitle =
                         hit.fields && hit.fields["source.keyword"][0];
                       const sectionItems =
