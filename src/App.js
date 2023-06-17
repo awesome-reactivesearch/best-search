@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import "./custom.scss";
 
@@ -17,6 +17,7 @@ import {
   SearchBox,
   TabDataList,
 } from "@appbaseio/reactivesearch";
+import { Section } from "./Section";
 
 const SEARCH_COMPONENT_ID = "SEARCH_COMPONENT_ID";
 const TABS_COMPONENT_ID = "TAB_COMPONENT_ID";
@@ -175,51 +176,13 @@ function Main() {
                           <h1 className="my-4 text-capitalize">
                             {sectionTitle}
                           </h1>
-                          <Row md={sectionTitle === "blog" ? 3 : 2}>
-                            {sectionItems.map((sectionItem) => {
-                              const source = sectionItem._source || {};
-                              const imageURL = source.img;
-                              const keywords = source.keywords || [];
-
-                              return (
-                                <Col className="mb-3" key={sectionItem._id}>
-                                  <div>
-                                    {(imageURL || sectionTitle === "blog") && (
-                                      <img
-                                        src={imageURL || placeholderImage}
-                                        className={styles.sectionItemImage}
-                                      />
-                                    )}
-                                    <h5>
-                                      {source.title ||
-                                        source.heading ||
-                                        source.meta_title}
-                                    </h5>
-                                    <div className="text-primary">{`Dashboard > UI Builder`}</div>
-                                    <p
-                                      className={styles.sectionItemDescription}
-                                    >
-                                      {source.meta_description}
-                                    </p>
-                                    <div className="d-flex flex-wrap">
-                                      {keywords
-                                        .filter((_, i) => i < 3)
-                                        .map((keyword) => (
-                                          <Badge
-                                            key={keyword}
-                                            pill
-                                            bg="light"
-                                            className="border border-2 border-dark px-2 py-1 me-1"
-                                          >
-                                            {keyword}
-                                          </Badge>
-                                        ))}
-                                    </div>
-                                  </div>
-                                </Col>
-                              );
-                            })}
-                          </Row>
+                          <Section
+                            sectionItems={sectionItems}
+                            columns={sectionTitle === "blog" ? 3 : 2}
+                            placeholderImage={
+                              sectionTitle === "blog" ? placeholderImage : null
+                            }
+                          />
                         </div>
                       );
                     })}
