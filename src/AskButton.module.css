@@ -1,0 +1,64 @@
+.btn {
+  position: relative;
+  background: linear-gradient(
+    -90deg,
+    #e03784,
+    #6c3bf7,
+    #00fffe,
+    #6c3bf7,
+    #e03784
+  );
+  background-size: 400% 100%;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.25em;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 0;
+  margin: 0;
+  animation: Gradient 4s ease infinite;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 5px 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 5px 5px 0px !important;
+}
+
+.btn div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  padding: 0px 5px;
+  border-radius: inherit;
+  animation: yXHjpo74b8kj9oY1a_8s 4s ease infinite;
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  font-family: "Helvetica Neue";
+}
+
+@keyframes Gradient {
+  50% {
+    background-position: 140% 50%;
+    transform: skew(-2deg);
+  }
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  background-size: inherit;
+  background-image: inherit;
+  animation: inherit;
+  left: 0px;
+  right: 0px;
+  top: 2px;
+  height: 100%;
+  filter: blur(2rem);
+}

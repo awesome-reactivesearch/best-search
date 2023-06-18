@@ -18,6 +18,7 @@ import {
   TabDataList,
 } from "@appbaseio/reactivesearch";
 import { Section } from "./Section";
+import { AskButton } from "./AskButton";
 
 const SEARCH_COMPONENT_ID = "SEARCH_COMPONENT_ID";
 const TABS_COMPONENT_ID = "TAB_COMPONENT_ID";
@@ -139,6 +140,13 @@ function Main() {
           size={5}
           showClear
           renderNoSuggestion="No suggestions found."
+          enableAI
+          AIUIConfig={{
+            askButton: true,
+            renderAskButton: (onAskButtonClick) => {
+              return <AskButton onClick={onAskButtonClick} />;
+            },
+          }}
         />
       </Container>
       <Container className="my-3">
