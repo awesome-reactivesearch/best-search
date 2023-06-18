@@ -2,8 +2,10 @@ import React from "react";
 import { Badge, Col, Row } from "react-bootstrap";
 import {
   BsLightningChargeFill,
+  BsPieChartFill,
   BsReverseListColumnsReverse,
   BsRocketTakeoffFill,
+  BsSearch,
   BsShieldFillCheck,
 } from "react-icons/bs";
 
@@ -51,6 +53,26 @@ function getIcon(url) {
     return (
       <BsShieldFillCheck
         color="green"
+        size={50}
+        className={styles.sectionItemIcon}
+      />
+    );
+  }
+
+  if (url.match("/docs/search/")) {
+    return (
+      <BsSearch
+        color="var(--bs-primary)"
+        size={50}
+        className={styles.sectionItemIcon}
+      />
+    );
+  }
+
+  if (url.match("/docs/analytics/")) {
+    return (
+      <BsPieChartFill
+        color="var(--bs-red)"
         size={50}
         className={styles.sectionItemIcon}
       />
