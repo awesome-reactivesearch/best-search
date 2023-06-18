@@ -142,6 +142,9 @@ function Main() {
         />
       </Container>
       <Container className="my-3">
+        {/* Has a nested ReactiveList which is used to show pagination when a tab is selected
+         * It also shows results with a modified query to show data for all the sections
+         */}
         <ReactiveList
           componentId={RESULT_COMPONENT_ID}
           react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
@@ -206,6 +209,7 @@ function Main() {
                       pagination
                       infiniteScroll={false}
                       size={12}
+                      className="reactiveList"
                     >
                       {({ rawData: innerRawData }) => {
                         if (innerRawData) {

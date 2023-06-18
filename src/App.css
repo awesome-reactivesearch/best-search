@@ -13,3 +13,7 @@
 .bootstrap li button {
   margin-left: auto;
 }
+
+.bootstrap .reactiveList a.active {
+  color: white;
+}
