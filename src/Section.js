@@ -16,6 +16,13 @@ import flutterIcon from "./assets/flutter.svg";
 import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
 
+function resolveAbsoluteURL(source) {
+  if (source.source === "docs") {
+    return `https://docs.reactivesearch.io${source.url}`;
+  }
+  return source.url;
+}
+
 function getIcon(url) {
   if (url.match("/docs/reactivesearch/react")) {
     return <img src={reactIcon} className={styles.sectionItemIcon} />;
@@ -97,6 +104,7 @@ export const Section = ({
         const imageURL = source.img;
         const keywords = source.keywords || [];
         const Icon = showIcon && getIcon(source.url);
+        const absoluteURL = resolveAbsoluteURL(source);
         let breadcrumb = "";
         if (showBreadcrumb) {
           try {
@@ -124,7 +132,12 @@ export const Section = ({
 
         return (
           <Col className="mb-5 pe-5" key={sectionItem._id}>
-            <div>
+            <a
+              className={styles.containerLink}
+              href={absoluteURL || "#"}
+              rel="noreferrer"
+              target="_blank"
+            >
               {showIcon ? Icon : null}
               {imageURL || placeholderImage ? (
                 <img
@@ -151,7 +164,7 @@ export const Section = ({
                     </Badge>
                   ))}
               </div>
-            </div>
+            </a>
           </Col>
         );
       })}
