@@ -141,15 +141,15 @@ function Main() {
           renderNoSuggestion="No suggestions found."
         />
       </Container>
-      <Container>
+      <Container className="my-3">
         <ReactiveList
           componentId={RESULT_COMPONENT_ID}
           react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
           dataField="title"
           showResultStats={false}
-          pagination
+          infiniteScroll={false}
+          pagination={false}
           size={12}
-          className="my-3"
         >
           {({ rawData }) => {
             if (rawData) {
@@ -197,18 +197,46 @@ function Main() {
                     </>
                   );
                 } else {
-                  const source = hits && hits[0] && hits[0]._source;
-                  const sectionTitle = source && source.source;
                   return (
-                    <Section
-                      sectionItems={hits}
-                      columns={sectionTitle !== "website" ? 3 : 2}
-                      placeholderImage={
-                        sectionTitle === "blog" ? placeholderImage : null
-                      }
-                      showBreadcrumb={sectionTitle === "docs"}
-                      showIcon={sectionTitle === "docs"}
-                    />
+                    <ReactiveList
+                      componentId={`${RESULT_COMPONENT_ID}_inner`}
+                      react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
+                      dataField="title"
+                      showResultStats={false}
+                      pagination
+                      infiniteScroll={false}
+                      size={12}
+                    >
+                      {({ rawData: innerRawData }) => {
+                        if (innerRawData) {
+                          const hits =
+                            innerRawData.hits && innerRawData.hits.hits;
+                          const hasSections =
+                            hits && hits[0] && hits[0].inner_hits;
+                          if (hits) {
+                            if (!hasSections) {
+                              const source = hits && hits[0] && hits[0]._source;
+                              const sectionTitle = source && source.source;
+                              return (
+                                <Section
+                                  sectionItems={hits}
+                                  columns={sectionTitle !== "website" ? 3 : 2}
+                                  placeholderImage={
+                                    sectionTitle === "blog"
+                                      ? placeholderImage
+                                      : null
+                                  }
+                                  showBreadcrumb={sectionTitle === "docs"}
+                                  showIcon={sectionTitle === "docs"}
+                                />
+                              );
+                            }
+                          }
+                        }
+
+                        return null;
+                      }}
+                    </ReactiveList>
                   );
                 }
               }
