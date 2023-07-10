@@ -165,6 +165,7 @@ function Main() {
           dataField="title"
           showResultStats={false}
           infiniteScroll={false}
+          renderNoResults={() => null}
           pagination={false}
           size={12}
         >
