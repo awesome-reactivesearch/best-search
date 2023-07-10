@@ -10,13 +10,13 @@ import "./utility.css";
 
 import { BreakpointProvider } from "./useBreakpoint";
 import {
+  AIAnswer,
   ReactiveBase,
   ReactiveList,
   SearchBox,
   TabDataList,
 } from "@appbaseio/reactivesearch";
 import { Section } from "./Section";
-import { AskButton } from "./AskButton";
 
 const SEARCH_COMPONENT_ID = "SEARCH_COMPONENT_ID";
 const TABS_COMPONENT_ID = "TAB_COMPONENT_ID";
@@ -145,17 +145,16 @@ function Main() {
           URLParams
           size={5}
           showClear
+          showVoiceSearch
           renderNoSuggestion="No suggestions found."
-          enableAI
-          AIUIConfig={{
-            askButton: true,
-            renderAskButton: (onAskButtonClick) => {
-              return <AskButton onClick={onAskButtonClick} />;
-            },
-          }}
         />
       </Container>
       <Container className="my-3">
+        <AIAnswer
+          react={{ and: [SEARCH_COMPONENT_ID] }}
+          componentId="ai-answer"
+        />
+
         {/* Has a nested ReactiveList which is used to show pagination when a tab is selected
          * It also shows results with a modified query to show data for all the sections
          */}
