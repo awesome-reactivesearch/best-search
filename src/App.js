@@ -7,8 +7,6 @@ import "./App.css";
 import styles from "./App.module.css";
 
 import "./utility.css";
-import reactivesearchLogo from "./reactivesearch-logo.svg";
-import placeholderImage from "./blog.jpg";
 
 import { BreakpointProvider } from "./useBreakpoint";
 import {
@@ -31,6 +29,9 @@ const sectionOrder = {
   blog: 2,
   docs: 3,
 };
+
+const placeholderImage =
+  "https://images.yourstory.com/cs/wordpress/2017/02/52-Blog.jpg";
 
 function Main() {
   return (
@@ -99,7 +100,12 @@ function Main() {
       }}
     >
       <Container>
-        <img src={reactivesearchLogo} className={styles.logo} />
+        <img
+          src={
+            "https://softr-prod.imgix.net/applications/1c48df48-ec83-4b4e-b41c-3f5ee2b4bcd0/assets/9be7126b-a10e-41ab-9f63-1ef71ba78bd8.png"
+          }
+          className={styles.logo}
+        />
       </Container>
       <Container className="mt-2 h-100">
         <TabDataList

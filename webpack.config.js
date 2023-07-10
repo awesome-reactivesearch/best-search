@@ -64,7 +64,7 @@ module.exports = (env) => {
       filename: "index.js",
       globalObject: "this",
       library: {
-        name: "SearchboxShowcase",
+        name: "BestSearch",
         type: "umd",
       },
     };
