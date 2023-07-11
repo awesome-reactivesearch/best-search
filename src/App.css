@@ -31,3 +31,13 @@ pre {
 .bootstrap .aiAnswerContainer .--ai-answer-message {
   max-width: 100%;
 }
+.bootstrap .aiAnswerContainer .aiLogo {
+  max-width: 100%;
+  width: 25px;
+  margin-right: 5px;
+  display: inline-block;
+  margin-left: 10px;
+}
+.bootstrap .aiAnswerContainer .aiLogoText {
+  font-size: 1rem;
+}

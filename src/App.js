@@ -106,6 +106,16 @@ function Main() {
               <AIAnswer
                 react={{ and: [SEARCH_COMPONENT_ID] }}
                 componentId="ai-answer"
+                title={
+                  <div>
+                    <img
+                      src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci83OGIxYzc0ODk2YTAzNDc0NDdkYTdhYTAzMGE2NzY3ND9zaXplPTEwMCZkZWZhdWx0PXJldHJvIn0.0D3SFc6eHLrIC_Mf0L2SxcdoLGf-DamDP0MoZcrx8IU"
+                      alt="reactivesearch-icon"
+                      className="aiLogo"
+                    ></img>
+                    <span className="aiLogoText">Reactivesearch AI</span>
+                  </div>
+                }
               />
             </Col>
           ) : null}

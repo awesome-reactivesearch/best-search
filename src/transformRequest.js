@@ -23,7 +23,7 @@ export const transformRequest = (req) => {
           distinctFieldConfig: {
             inner_hits: {
               name: "most_rel",
-              size: 5,
+              size: 6,
               from: from || 0,
             },
             max_concurrent_group_searches: 4,
