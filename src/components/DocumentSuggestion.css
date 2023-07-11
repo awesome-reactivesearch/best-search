@@ -1,0 +1,3 @@
+li.active-li-item .suggestion .suggestionIcon svg {
+  fill: var(--bs-primary) !important;
+}

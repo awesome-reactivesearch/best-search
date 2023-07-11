@@ -20,6 +20,8 @@ import { AllResults } from "./components/AllResults";
 import { SectionResult } from "./components/SectionResult";
 import { transformRequest } from "./transformRequest";
 import { Drawer } from "./components/Drawer";
+import { DocumentSuggestion } from "./components/DocumentSuggestion";
+import { Suggestion } from "./components/Suggestion";
 
 function Main() {
   const [currentTab, setCurrentTab] = useState(ALL_LABEL);
@@ -86,12 +88,20 @@ function Main() {
           size={5}
           showClear
           showVoiceSearch
+          enableRecentSuggestions
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
           onValueSelected={(v) =>
             v ? setSearchQueryFinal(v) : setSearchQueryFinal("")
           }
           renderNoSuggestion="No suggestions found."
+          renderItem={(suggestion) =>
+            Object.keys(suggestion._source || {}).length ? (
+              <DocumentSuggestion source={suggestion._source} />
+            ) : (
+              <Suggestion suggestion={suggestion} />
+            )
+          }
         />
       </Container>
       <Container className="my-3">
