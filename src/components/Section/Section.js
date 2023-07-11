@@ -9,10 +9,6 @@ import {
   BsShieldFillCheck,
 } from "react-icons/bs";
 
-import reactIcon from "../../assets/react.svg";
-import vueIcon from "../../assets/vue.svg";
-import flutterIcon from "../../assets/flutter.svg";
-
 import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
 
@@ -25,13 +21,32 @@ function resolveAbsoluteURL(source) {
 
 function getIcon(url) {
   if (url.match("/docs/reactivesearch/react")) {
-    return <img src={reactIcon} className={styles.sectionItemIcon} />;
+    return (
+      <img
+        src={
+          "https://www.svgrepo.com/show/493719/react-javascript-js-framework-facebook.svg"
+        }
+        className={styles.sectionItemIcon}
+      />
+    );
   }
   if (url.match("/docs/reactivesearch/vue")) {
-    return <img src={vueIcon} className={styles.sectionItemIcon} />;
+    return (
+      <img
+        src={
+          "https://www.svgrepo.com/show/493625/vue-vuejs-javascript-js-framework.svg"
+        }
+        className={styles.sectionItemIcon}
+      />
+    );
   }
   if (url.match("/docs/reactivesearch/flutter")) {
-    return <img src={flutterIcon} className={styles.sectionItemIcon} />;
+    return (
+      <img
+        src={"https://www.svgrepo.com/show/373604/flutter.svg"}
+        className={styles.sectionItemIcon}
+      />
+    );
   }
   if (url.match("/docs/speed")) {
     return (
