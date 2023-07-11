@@ -19,10 +19,12 @@ import { ALL_LABEL, SEARCH_COMPONENT_ID, TABS_COMPONENT_ID } from "./constants";
 import { AllResults } from "./components/AllResults";
 import { SectionResult } from "./components/SectionResult";
 import { transformRequest } from "./transformRequest";
+import { Drawer } from "./components/Drawer";
 
 function Main() {
   const [currentTab, setCurrentTab] = useState(ALL_LABEL);
   const [searchQuery, setSearchQuery] = useState("");
+
   const isLessThanMD = window.innerWidth < 768;
   const showInDrawer = isLessThanMD;
 
@@ -30,10 +32,6 @@ function Main() {
     <ReactiveBase
       app="unified-reactivesearch-web-data"
       url="https://a03a1cb71321:75b6603d-9456-4a5a-af6b-a487b309eb61@appbase-demo-ansible-abxiydt-arc.searchbase.io"
-      reactivesearchAPIConfig={{
-        recordAnalytics: true,
-        userId: "jon",
-      }}
       transformRequest={transformRequest}
     >
       <Container>
@@ -101,7 +99,26 @@ function Main() {
 
             {currentTab !== ALL_LABEL ? <SectionResult /> : null}
           </Col>
-          {showInDrawer ? null : searchQuery ? (
+          {showInDrawer ? (
+            <>
+              <Drawer>
+                <AIAnswer
+                  react={{ and: [SEARCH_COMPONENT_ID] }}
+                  componentId="ai-answer"
+                  title={
+                    <div>
+                      <img
+                        src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci83OGIxYzc0ODk2YTAzNDc0NDdkYTdhYTAzMGE2NzY3ND9zaXplPTEwMCZkZWZhdWx0PXJldHJvIn0.0D3SFc6eHLrIC_Mf0L2SxcdoLGf-DamDP0MoZcrx8IU"
+                        alt="reactivesearch-icon"
+                        className="aiLogo"
+                      ></img>
+                      <span className="aiLogoText">Reactivesearch AI</span>
+                    </div>
+                  }
+                />
+              </Drawer>
+            </>
+          ) : searchQuery ? (
             <Col md={4} className="aiAnswerContainer">
               <AIAnswer
                 react={{ and: [SEARCH_COMPONENT_ID] }}
