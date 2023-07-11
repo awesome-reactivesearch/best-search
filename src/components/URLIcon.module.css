@@ -1,4 +1,4 @@
 .sectionItemIcon {
-  width: 50px;
   margin-bottom: 1rem;
+  object-fit: cover;
 }

@@ -58,7 +58,8 @@
   font-size: 0.8rem;
   position: absolute;
   top: 2px;
-  max-width: 30%;
+  max-width: 100%;
+  width: max-content;
   right: 10px;
   background-color: #eee;
   color: #6c757d;
@@ -85,7 +86,6 @@
     right: 0;
     font-size: 0.7rem;
     display: block;
-    max-width: 100%;
   }
   .suggestionTitle {
     width: 100%;

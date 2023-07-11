@@ -14,9 +14,9 @@ export const DocumentSuggestion = ({ source }) => {
       <div className="row">
         <div className="d-flex justify-content-center align-items-center col col-3 col-md-1">
           <div
-            className={`p-1 rounded bg-white suggestionIcon ${styles.suggestionIcon}`}
+            className={`p-3 rounded bg-white suggestionIcon ${styles.suggestionIcon}`}
           >
-            <URLIcon url={source.url} style={{ margin: "auto" }} />
+            <URLIcon url={source.url} style={{ margin: "auto" }} size={30} />
           </div>
         </div>
         <div className="col col-9 col-md-11">

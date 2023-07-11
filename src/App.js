@@ -76,10 +76,6 @@ function Main() {
               field: "heading",
               weight: 6,
             },
-            {
-              field: "pageURL",
-              weight: 1,
-            },
           ]}
           componentId={SEARCH_COMPONENT_ID}
           className={styles.searchBox}
