@@ -24,8 +24,22 @@ import { DocumentSuggestion } from "./components/DocumentSuggestion";
 import { Suggestion } from "./components/Suggestion";
 
 function Main() {
-  const [currentTab, setCurrentTab] = useState(ALL_LABEL);
-  const [searchQuery, setSearchQuery] = useState("");
+  // When URL Params are set we should set the default value for tabs and search component.
+  // This happens when somebody uses URL to load a pre-filtered page. eg. ?tab="Website"&search="Hello"
+  const urlParams = new URL(location.href).searchParams;
+  const selectedTabFromURL =
+    urlParams.get(TABS_COMPONENT_ID) &&
+    urlParams
+      .get(TABS_COMPONENT_ID)
+      .substring(1, urlParams.get(TABS_COMPONENT_ID).length - 1);
+  const selectedQueryFromURL =
+    urlParams.get(SEARCH_COMPONENT_ID) &&
+    urlParams
+      .get(SEARCH_COMPONENT_ID)
+      .substring(1, urlParams.get(SEARCH_COMPONENT_ID).length - 1);
+
+  const [currentTab, setCurrentTab] = useState(selectedTabFromURL);
+  const [searchQuery, setSearchQuery] = useState(selectedQueryFromURL || "");
   const [searchQueryFinal, setSearchQueryFinal] = useState("");
 
   const isLessThanMD = window.innerWidth < 768;
