@@ -16,7 +16,12 @@ export const AllResults = () => (
     dataField="title"
     showResultStats={false}
     infiniteScroll={false}
-    renderNoResults={() => null}
+    renderNoResults={() => (
+      <img
+        className={"noResults"}
+        src="https://cdn.dribbble.com/userupload/2905354/file/original-92212c04a044acd88c69bedc56b3dda2.png?compress=1&resize=1504x1128"
+      />
+    )}
     pagination
     size={12}
     className="reactiveList"
