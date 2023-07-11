@@ -24,6 +24,7 @@ import { Drawer } from "./components/Drawer";
 function Main() {
   const [currentTab, setCurrentTab] = useState(ALL_LABEL);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchQueryFinal, setSearchQueryFinal] = useState("");
 
   const isLessThanMD = window.innerWidth < 768;
   const showInDrawer = isLessThanMD;
@@ -87,6 +88,9 @@ function Main() {
           showVoiceSearch
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
+          onValueSelected={(v) =>
+            v ? setSearchQueryFinal(v) : setSearchQueryFinal("")
+          }
           renderNoSuggestion="No suggestions found."
         />
       </Container>
@@ -99,8 +103,8 @@ function Main() {
 
             {currentTab !== ALL_LABEL ? <SectionResult /> : null}
           </Col>
-          {showInDrawer ? (
-            <>
+          {searchQueryFinal ? (
+            showInDrawer ? (
               <Drawer>
                 <AIAnswer
                   react={{ and: [SEARCH_COMPONENT_ID] }}
@@ -117,24 +121,24 @@ function Main() {
                   }
                 />
               </Drawer>
-            </>
-          ) : searchQuery ? (
-            <Col md={4} className="aiAnswerContainer">
-              <AIAnswer
-                react={{ and: [SEARCH_COMPONENT_ID] }}
-                componentId="ai-answer"
-                title={
-                  <div>
-                    <img
-                      src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci83OGIxYzc0ODk2YTAzNDc0NDdkYTdhYTAzMGE2NzY3ND9zaXplPTEwMCZkZWZhdWx0PXJldHJvIn0.0D3SFc6eHLrIC_Mf0L2SxcdoLGf-DamDP0MoZcrx8IU"
-                      alt="reactivesearch-icon"
-                      className="aiLogo"
-                    ></img>
-                    <span className="aiLogoText">Reactivesearch AI</span>
-                  </div>
-                }
-              />
-            </Col>
+            ) : (
+              <Col md={4} className="aiAnswerContainer">
+                <AIAnswer
+                  react={{ and: [SEARCH_COMPONENT_ID] }}
+                  componentId="ai-answer"
+                  title={
+                    <div>
+                      <img
+                        src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci83OGIxYzc0ODk2YTAzNDc0NDdkYTdhYTAzMGE2NzY3ND9zaXplPTEwMCZkZWZhdWx0PXJldHJvIn0.0D3SFc6eHLrIC_Mf0L2SxcdoLGf-DamDP0MoZcrx8IU"
+                        alt="reactivesearch-icon"
+                        className="aiLogo"
+                      ></img>
+                      <span className="aiLogoText">Reactivesearch AI</span>
+                    </div>
+                  }
+                />
+              </Col>
+            )
           ) : null}
         </Row>
       </Container>
