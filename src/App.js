@@ -84,25 +84,26 @@ function Main() {
           size={5}
           showClear
           showVoiceSearch
-          enableRecentSuggestions
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
           onValueSelected={(v) =>
             v ? setSearchQueryFinal(v) : setSearchQueryFinal("")
           }
           renderNoSuggestion="No suggestions found."
-          renderItem={(suggestion) =>
-            Object.keys(suggestion._source || {}).length ? (
+          renderItem={(suggestion) => {
+            const suggestionType = suggestion._suggestion_type;
+
+            return suggestionType === "index" ? (
               <DocumentSuggestion source={suggestion._source} />
             ) : (
               <Suggestion suggestion={suggestion} />
-            )
-          }
+            );
+          }}
         />
       </Container>
       <Container className="my-3">
         <Row>
-          <Col md={searchQuery ? 8 : "auto"} xs={12}>
+          <Col md={searchQueryFinal ? 8 : "auto"} xs={12}>
             {/* Show and hide reactivelist when we select ALL label because they depend on different rendering logic
              */}
             {currentTab === ALL_LABEL ? <AllResults /> : null}
