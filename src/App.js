@@ -12,26 +12,13 @@ import { BreakpointProvider } from "./useBreakpoint";
 import {
   AIAnswer,
   ReactiveBase,
-  ReactiveList,
   SearchBox,
   TabDataList,
 } from "@appbaseio/reactivesearch";
-import { Section } from "./Section";
-
-const SEARCH_COMPONENT_ID = "SEARCH_COMPONENT_ID";
-const TABS_COMPONENT_ID = "TAB_COMPONENT_ID";
-const RESULT_COMPONENT_ID = "RESULT_LIST";
-
-const ALL_LABEL = "All";
-
-const sectionOrder = {
-  website: 1,
-  blog: 2,
-  docs: 3,
-};
-
-const placeholderImage =
-  "https://images.yourstory.com/cs/wordpress/2017/02/52-Blog.jpg";
+import { ALL_LABEL, SEARCH_COMPONENT_ID, TABS_COMPONENT_ID } from "./constants";
+import { AllResults } from "./components/AllResults";
+import { SectionResult } from "./components/SectionResult";
+import { transformRequest } from "./transformRequest";
 
 function Main() {
   const [currentTab, setCurrentTab] = useState(ALL_LABEL);
@@ -43,48 +30,7 @@ function Main() {
         recordAnalytics: true,
         userId: "jon",
       }}
-      transformRequest={(req) => {
-        const body = JSON.parse(req.body);
-        const showAllResults = Boolean(
-          body.query.find(
-            (componentQuery) =>
-              componentQuery.id === TABS_COMPONENT_ID &&
-              componentQuery.value &&
-              componentQuery.value[0] === ALL_LABEL
-          )
-        );
-        body.query = body.query.map((componentQuery) => {
-          // handle when no search value is there. The component is making a suggestion query
-          if (componentQuery.id === RESULT_COMPONENT_ID) {
-            const searchQuery = body.query.find(
-              (cQ) => cQ.id === SEARCH_COMPONENT_ID
-            );
-            if (
-              (searchQuery && !searchQuery.value && showAllResults) ||
-              (!searchQuery && showAllResults)
-            ) {
-              const from = componentQuery.from;
-              delete componentQuery.from;
-              return {
-                ...componentQuery,
-                distinctField: "source.keyword",
-                distinctFieldConfig: {
-                  inner_hits: {
-                    name: "most_rel",
-                    size: 5,
-                    from: from || 0,
-                  },
-                  max_concurrent_group_searches: 4,
-                },
-              };
-            }
-            return componentQuery;
-          }
-          return componentQuery;
-        });
-        const newReq = { ...req, body: JSON.stringify(body) };
-        return newReq;
-      }}
+      transformRequest={transformRequest}
     >
       <Container>
         <img
@@ -147,110 +93,9 @@ function Main() {
 
         {/* Show and hide reactivelist when we select ALL label because they depend on different rendering logic
          */}
-        {currentTab === ALL_LABEL ? (
-          <ReactiveList
-            componentId={RESULT_COMPONENT_ID}
-            react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
-            dataField="title"
-            showResultStats={false}
-            infiniteScroll={false}
-            renderNoResults={() => null}
-            pagination
-            size={12}
-            className="reactiveList"
-          >
-            {({ rawData }) => {
-              if (rawData) {
-                const hits = rawData.hits && rawData.hits.hits;
-                const hasSections = hits && hits[0] && hits[0].inner_hits;
-                if (hits) {
-                  if (hasSections) {
-                    const sortedHits = hits.sort((a, b) => {
-                      const sourceA = a.fields && a.fields["source.keyword"][0];
-                      const sourceB = b.fields && b.fields["source.keyword"][0];
-                      const orderA = sectionOrder[sourceA];
-                      const orderB = sectionOrder[sourceB];
-                      return orderA - orderB;
-                    });
-                    return (
-                      <>
-                        {sortedHits.map((hit) => {
-                          const sectionTitle =
-                            hit.fields && hit.fields["source.keyword"][0];
-                          const sectionItems =
-                            (hit.inner_hits &&
-                              hit.inner_hits.most_rel &&
-                              hit.inner_hits.most_rel.hits.hits) ||
-                            [];
+        {currentTab === ALL_LABEL ? <AllResults /> : null}
 
-                          return sectionItems.length ? (
-                            <div key={sectionTitle}>
-                              <h1 className="my-4 text-capitalize">
-                                {sectionTitle}
-                              </h1>
-                              <Section
-                                sectionItems={sectionItems}
-                                columns={sectionTitle !== "website" ? 3 : 2}
-                                placeholderImage={
-                                  sectionTitle === "blog"
-                                    ? placeholderImage
-                                    : null
-                                }
-                                showBreadcrumb={sectionTitle === "docs"}
-                                showIcon={sectionTitle === "docs"}
-                              />
-                            </div>
-                          ) : null;
-                        })}
-                      </>
-                    );
-                  }
-                }
-              }
-
-              return null;
-            }}
-          </ReactiveList>
-        ) : null}
-
-        {currentTab !== ALL_LABEL ? (
-          <ReactiveList
-            componentId={`${RESULT_COMPONENT_ID}_inner`}
-            react={{ and: [SEARCH_COMPONENT_ID, TABS_COMPONENT_ID] }}
-            dataField="title"
-            showResultStats={false}
-            pagination
-            infiniteScroll={false}
-            size={12}
-            className="reactiveList"
-          >
-            {({ rawData: innerRawData }) => {
-              if (innerRawData) {
-                const hits = innerRawData.hits && innerRawData.hits.hits;
-                const hasSections = hits && hits[0] && hits[0].inner_hits;
-                if (hits) {
-                  if (!hasSections) {
-                    const source = hits && hits[0] && hits[0]._source;
-                    const sectionTitle = source && source.source;
-                    return (
-                      <Section
-                        sectionItems={hits}
-                        columns={sectionTitle !== "website" ? 3 : 2}
-                        placeholderImage={
-                          sectionTitle === "blog" ? placeholderImage : null
-                        }
-                        showBreadcrumb={sectionTitle === "docs"}
-                        showIcon={sectionTitle === "docs"}
-                      />
-                    );
-                  }
-                }
-              }
-
-              return null;
-            }}
-          </ReactiveList>
-        ) : null}
+        {currentTab !== ALL_LABEL ? <SectionResult /> : null}
       </Container>
     </ReactiveBase>
   );

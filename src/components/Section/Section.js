@@ -9,9 +9,9 @@ import {
   BsShieldFillCheck,
 } from "react-icons/bs";
 
-import reactIcon from "./assets/react.svg";
-import vueIcon from "./assets/vue.svg";
-import flutterIcon from "./assets/flutter.svg";
+import reactIcon from "../../assets/react.svg";
+import vueIcon from "../../assets/vue.svg";
+import flutterIcon from "../../assets/flutter.svg";
 
 import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
