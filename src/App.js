@@ -40,7 +40,9 @@ function Main() {
 
   const [currentTab, setCurrentTab] = useState(selectedTabFromURL);
   const [searchQuery, setSearchQuery] = useState(selectedQueryFromURL || "");
-  const [searchQueryFinal, setSearchQueryFinal] = useState("");
+  const [searchQueryFinal, setSearchQueryFinal] = useState(
+    selectedQueryFromURL || ""
+  );
 
   const isLessThanMD = window.innerWidth < 768;
   const showInDrawer = isLessThanMD;
@@ -97,6 +99,8 @@ function Main() {
           URLParams
           size={5}
           showClear
+          enableRecentSuggestions
+          recentSuggestionsConfig={{ index: "unified-reactivesearch-web-data" }}
           showVoiceSearch
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
