@@ -17,3 +17,17 @@
 .bootstrap .reactiveList a.active {
   color: white;
 }
+.bootstrap .aiAnswerContainer {
+  margin-top: 70px;
+}
+.bootstrap .aiAnswerContainer a.enter-btn {
+  color: white;
+  text-decoration: none;
+}
+.bootstrap .aiAnswerContainer code,
+pre {
+  color: white;
+}
+.bootstrap .aiAnswerContainer .--ai-answer-message {
+  max-width: 100%;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 import "./custom.scss";
 
@@ -22,6 +22,10 @@ import { transformRequest } from "./transformRequest";
 
 function Main() {
   const [currentTab, setCurrentTab] = useState(ALL_LABEL);
+  const [searchQuery, setSearchQuery] = useState("");
+  const isLessThanMD = window.innerWidth < 768;
+  const showInDrawer = isLessThanMD;
+
   return (
     <ReactiveBase
       app="unified-reactivesearch-web-data"
@@ -51,6 +55,7 @@ function Main() {
             { label: "Docs", value: "docs" },
             { label: "Blog", value: "blog" },
           ]}
+          URLParams
           value={currentTab}
           /*Tab values are labels. eg. (All, Website, Docs, Blog)*/
           onChange={(v) => v && setCurrentTab(v)}
@@ -82,20 +87,29 @@ function Main() {
           size={5}
           showClear
           showVoiceSearch
+          value={searchQuery}
+          onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
           renderNoSuggestion="No suggestions found."
         />
       </Container>
       <Container className="my-3">
-        <AIAnswer
-          react={{ and: [SEARCH_COMPONENT_ID] }}
-          componentId="ai-answer"
-        />
+        <Row>
+          <Col md={searchQuery ? 8 : "auto"} xs={12}>
+            {/* Show and hide reactivelist when we select ALL label because they depend on different rendering logic
+             */}
+            {currentTab === ALL_LABEL ? <AllResults /> : null}
 
-        {/* Show and hide reactivelist when we select ALL label because they depend on different rendering logic
-         */}
-        {currentTab === ALL_LABEL ? <AllResults /> : null}
-
-        {currentTab !== ALL_LABEL ? <SectionResult /> : null}
+            {currentTab !== ALL_LABEL ? <SectionResult /> : null}
+          </Col>
+          {showInDrawer ? null : searchQuery ? (
+            <Col md={4} className="aiAnswerContainer">
+              <AIAnswer
+                react={{ and: [SEARCH_COMPONENT_ID] }}
+                componentId="ai-answer"
+              />
+            </Col>
+          ) : null}
+        </Row>
       </Container>
     </ReactiveBase>
   );
