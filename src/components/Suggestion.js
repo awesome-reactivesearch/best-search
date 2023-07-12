@@ -2,17 +2,19 @@ import React from "react";
 
 import { object } from "prop-types";
 
-import { BsClockHistory } from "react-icons/bs";
+import { BsClock, BsLightningCharge } from "react-icons/bs";
 
 export const Suggestion = ({ suggestion }) => {
   let type = suggestion._suggestion_type || "normal";
   let Icon;
   if (type === "recent") {
-    Icon = BsClockHistory;
+    Icon = BsClock;
+  } else if (type === "popular") {
+    Icon = BsLightningCharge;
   }
   return (
-    <div>
-      {Icon ? <Icon className="me-1" /> : null}
+    <div className="d-flex justify-content-center align-items-center">
+      {Icon ? <Icon className="me-2" /> : null}
       <span>{suggestion.label}</span>
     </div>
   );

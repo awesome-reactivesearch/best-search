@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@appbaseio/reactivesearch": "^4.0.0-rc.24",
+    "@appbaseio/reactivesearch": "^4.0.0-rc.25",
     "bootstrap": "^5.2.3",
     "prop-types": "^15.8.1",
     "react-bootstrap": "^2.7.2",

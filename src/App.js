@@ -38,7 +38,7 @@ function Main() {
       .get(SEARCH_COMPONENT_ID)
       .substring(1, urlParams.get(SEARCH_COMPONENT_ID).length - 1);
 
-  const [currentTab, setCurrentTab] = useState(selectedTabFromURL);
+  const [currentTab, setCurrentTab] = useState(selectedTabFromURL || ALL_LABEL);
   const [searchQuery, setSearchQuery] = useState(selectedQueryFromURL || "");
   const [searchQueryFinal, setSearchQueryFinal] = useState(
     selectedQueryFromURL || ""
@@ -76,7 +76,6 @@ function Main() {
           value={currentTab}
           /*Tab values are labels. eg. (All, Website, Docs, Blog)*/
           onChange={(v) => v && setCurrentTab(v)}
-          defaultValue={ALL_LABEL}
         />
         <SearchBox
           dataField={[
@@ -100,7 +99,10 @@ function Main() {
           size={5}
           showClear
           enableRecentSuggestions
-          recentSuggestionsConfig={{ index: "unified-reactivesearch-web-data" }}
+          recentSuggestionsConfig={{
+            index: "unified-reactivesearch-web-data",
+            sectionLabel: "Recent",
+          }}
           showVoiceSearch
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
