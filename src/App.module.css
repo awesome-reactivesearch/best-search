@@ -15,12 +15,45 @@
 
 .resourceFilter a {
   text-decoration: none;
-  margin-right: 20px;
-  font-size: 1.25rem;
+  font-family: "Raleway", sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+  color: black;
+  padding: 1.25rem 2rem;
 }
 
 .searchBox ol,
 .searchBox ul,
 .searchBox dl {
   padding-left: 0px;
+}
+
+.searchBox [class*="IconWrapper"] {
+  width: 1.75rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  margin: 0.25rem;
+}
+
+.searchBox [class*="IconWrapper"] svg {
+  scale: 1.75;
+}
+
+.searchBox textarea {
+  height: 75px !important;
+  overflow-y: hidden;
+  padding-left: 2.75rem;
+  line-height: 3.5rem !important;
+  font-size: 1.3rem !important;
+  font-family: "Raleway", sans-serif;
+}
+.searchBox textarea::placeholder {
+  color: lightslategray;
+  line-height: 3.5rem !important;
+  font-size: 1.3rem !important;
+  font-family: "Raleway", sans-serif;
+}
+.searchBox [class*="InputWrapper"],
+.searchBox [class*="InputGroup"] {
+  height: 75px !important;
 }

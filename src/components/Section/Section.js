@@ -4,6 +4,12 @@ import { Badge, Col, Row } from "react-bootstrap";
 import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
 import { URLIcon } from "../URLIcon";
+import {
+  BsArrowRight,
+  BsArrowRightSquare,
+  BsCaretRight,
+  BsFillCaretRightFill,
+} from "react-icons/bs";
 
 function resolveAbsoluteURL(source) {
   if (source.source === "docs") {
@@ -26,7 +32,7 @@ export const Section = ({
         const imageURL = source.img;
         const keywords = source.keywords || [];
         const absoluteURL = resolveAbsoluteURL(source);
-        let breadcrumb = "";
+        let breadcrumb = [];
         if (showBreadcrumb) {
           try {
             let breadcrumbURL = source.url || "";
@@ -45,7 +51,7 @@ export const Section = ({
                   v.toLowerCase()
                 )
             );
-            breadcrumb = hashElementRemovedArr.join(" -> ");
+            breadcrumb = hashElementRemovedArr;
           } catch {
             console.log("Failed to parse url");
           }
@@ -67,7 +73,23 @@ export const Section = ({
                 />
               ) : null}
               <h5>{source.title || source.heading || source.meta_title}</h5>
-              <div className="text-primary">{breadcrumb}</div>
+              <div className="text-primary">
+                {breadcrumb.map((br, brIdx) => (
+                  <>
+                    <span>{br}</span>
+                    {brIdx < breadcrumb.length - 1 ? (
+                      <BsFillCaretRightFill
+                        style={{
+                          margin: "0 3px",
+                          display: "inline-block",
+                          marginBottom: 3,
+                        }}
+                        size={"1rem"}
+                      />
+                    ) : null}
+                  </>
+                ))}
+              </div>
               <p className={styles.sectionItemDescription}>
                 {source.meta_description || source.heading}
               </p>

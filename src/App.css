@@ -14,10 +14,20 @@
   margin-left: auto;
 }
 
-.bootstrap .reactiveList a.active {
-  color: white;
-  margin-bottom: 70px;
+.bootstrap .bestSearchPagination {
+  display: flex;
+  justify-content: flex-end;
 }
+
+.bootstrap .bestSearchPagination a {
+  background: none;
+  color: var(--bs-primary);
+}
+.bootstrap .bestSearchPagination a.active {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
 .bootstrap .reactiveList .noResults {
   width: 100%;
 }
@@ -45,11 +55,20 @@ pre {
 }
 .floatingBtn {
   position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  font-size: 1.5rem;
+  bottom: 10px;
+  right: 10px;
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 1.5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .bootstrap .flex-1 {
   flex: 1;
+}
+.bootstrap h1,
+.bootstrap h2,
+.bootstrap h3 {
+  font-family: Raleway, sans-serif;
 }

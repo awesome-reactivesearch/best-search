@@ -25,6 +25,8 @@ export const AllResults = () => (
     pagination
     size={12}
     className="reactiveList"
+    paginationAt="both"
+    innerClass={{ pagination: "bestSearchPagination" }}
   >
     {({ rawData }) => {
       if (rawData) {

@@ -1,24 +1,32 @@
 import React, { useState } from "react";
 import { AIAnswer } from "@appbaseio/reactivesearch";
 import { SEARCH_COMPONENT_ID } from "../constants";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowLeft, BsRobot } from "react-icons/bs";
 import { Button } from "react-bootstrap";
 
 import styles from "./Drawer.module.css";
 
 export const Drawer = () => {
   const [show, setShow] = useState(false);
+
+  const handleShow = () => {
+    const bodyEl = document.querySelector("body");
+    bodyEl.style.overflowY = "hidden";
+    setShow(true);
+  };
+  const handleHide = () => {
+    const bodyEl = document.querySelector("body");
+    bodyEl.style.overflowY = "scroll";
+    setShow(false);
+  };
+
   return (
     <>
       <div
         style={{ visibility: show ? "visible" : "hidden" }}
         className={`${styles.drawer} aiAnswerContainer`}
       >
-        <Button
-          variant="secondary"
-          className="my-2"
-          onClick={() => setShow(false)}
-        >
+        <Button variant="secondary" className="my-2" onClick={handleHide}>
           <BsArrowLeft /> Back
         </Button>
         <AIAnswer
@@ -39,10 +47,10 @@ export const Drawer = () => {
 
       <Button
         variant="primary"
-        onClick={() => setShow(true)}
+        onClick={handleShow}
         className="me-2 floatingBtn"
       >
-        View AI Answer
+        <BsRobot />
       </Button>
     </>
   );

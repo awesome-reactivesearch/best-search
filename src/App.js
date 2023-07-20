@@ -8,7 +8,7 @@ import styles from "./App.module.css";
 
 import "./utility.css";
 
-import { BreakpointProvider } from "./useBreakpoint";
+import { BreakpointProvider, useBreakpoint } from "./useBreakpoint";
 import {
   AIAnswer,
   ReactiveBase,
@@ -43,9 +43,9 @@ function Main() {
   const [searchQueryFinal, setSearchQueryFinal] = useState(
     selectedQueryFromURL || ""
   );
+  const breakpointPoint = useBreakpoint();
 
-  const isLessThanMD = window.innerWidth < 768;
-  const showInDrawer = isLessThanMD;
+  const showInDrawer = breakpointPoint === "xs" || breakpointPoint === "sm";
 
   return (
     <ReactiveBase
@@ -92,7 +92,7 @@ function Main() {
               weight: 6,
             },
           ]}
-          react={{and: [TABS_COMPONENT_ID]}}
+          react={{ and: [TABS_COMPONENT_ID] }}
           componentId={SEARCH_COMPONENT_ID}
           className={styles.searchBox}
           highlight
@@ -104,6 +104,7 @@ function Main() {
             index: "unified-reactivesearch-web-data",
             sectionLabel: "Recent",
           }}
+          placeholder="Explore Reactivesearch..."
           showVoiceSearch
           value={searchQuery}
           onChange={(v) => (v ? setSearchQuery(v) : setSearchQuery(""))}
@@ -174,10 +175,12 @@ function Main() {
   );
 }
 
-const App = () => (
-  <BreakpointProvider>
-    <Main />
-  </BreakpointProvider>
-);
+const App = () => {
+  return (
+    <BreakpointProvider>
+      <Main />
+    </BreakpointProvider>
+  );
+};
 
 export default App;
