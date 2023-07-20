@@ -1,10 +1,9 @@
 {
   "name": "best-search-reactivesearch",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "author": "Shubham Shah <shubhamshahrising@gmail.com>",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "@appbaseio/reactivesearch": "^4.0.0-rc.25",
     "bootstrap": "^5.2.3",
@@ -14,6 +13,7 @@
   },
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
+    "prepublishOnly": "yarn run build:lib",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "build:lib": "webpack --mode=production --env library=true --node-env=production",
