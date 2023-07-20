@@ -4,12 +4,7 @@ import { Badge, Col, Row } from "react-bootstrap";
 import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
 import { URLIcon } from "../URLIcon";
-import {
-  BsArrowRight,
-  BsArrowRightSquare,
-  BsCaretRight,
-  BsFillCaretRightFill,
-} from "react-icons/bs";
+import { BsFillCaretRightFill } from "react-icons/bs";
 
 function resolveAbsoluteURL(source) {
   if (source.source === "docs") {
@@ -26,7 +21,7 @@ export const Section = ({
   showBreadcrumb,
 }) => {
   return (
-    <Row md={columns} sm={1}>
+    <Row md={columns} sm={1} xs={1}>
       {sectionItems.map((sectionItem) => {
         const source = sectionItem._source || {};
         const imageURL = source.img;
