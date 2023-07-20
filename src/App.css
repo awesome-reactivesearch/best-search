@@ -23,6 +23,9 @@
   background: none;
   color: var(--bs-primary);
 }
+.bootstrap .bestSearchPagination:nth-last-child(1) {
+  margin-bottom: 4rem;
+}
 .bootstrap .bestSearchPagination a.active {
   background-color: var(--bs-primary);
   color: white;

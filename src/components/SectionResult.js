@@ -24,6 +24,8 @@ export const SectionResult = () => (
         src="https://cdn.dribbble.com/userupload/2905354/file/original-92212c04a044acd88c69bedc56b3dda2.png?compress=1&resize=1504x1128"
       />
     )}
+    paginationAt="both"
+    innerClass={{ pagination: "bestSearchPagination" }}
   >
     {({ rawData: innerRawData }) => {
       if (innerRawData) {
@@ -34,15 +36,17 @@ export const SectionResult = () => (
             const source = hits && hits[0] && hits[0]._source;
             const sectionTitle = source && source.source;
             return (
-              <Section
-                sectionItems={hits}
-                columns={sectionTitle !== "website" ? 3 : 2}
-                placeholderImage={
-                  sectionTitle === "blog" ? placeholderImage : null
-                }
-                showBreadcrumb={sectionTitle === "docs"}
-                showIcon={sectionTitle === "docs"}
-              />
+              <div className="mt-4">
+                <Section
+                  sectionItems={hits}
+                  columns={sectionTitle !== "website" ? 3 : 2}
+                  placeholderImage={
+                    sectionTitle === "blog" ? placeholderImage : null
+                  }
+                  showBreadcrumb={sectionTitle === "docs"}
+                  showIcon={sectionTitle === "docs"}
+                />
+              </div>
             );
           }
         }
