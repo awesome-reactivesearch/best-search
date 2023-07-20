@@ -5,13 +5,7 @@ import styles from "./Section.module.css";
 import { arrayOf, bool, number, object, shape, string } from "prop-types";
 import { URLIcon } from "../URLIcon";
 import { BsFillCaretRightFill } from "react-icons/bs";
-
-function resolveAbsoluteURL(source) {
-  if (source.source === "docs") {
-    return `https://docs.reactivesearch.io${source.url}`;
-  }
-  return source.url;
-}
+import { isSameOrigin, resolveAbsoluteURL } from "../../utils";
 
 export const Section = ({
   columns = 2,
@@ -58,7 +52,9 @@ export const Section = ({
               className={styles.containerLink}
               href={absoluteURL || "#"}
               rel="noreferrer"
-              target="_blank"
+              target={
+                isSameOrigin(resolveAbsoluteURL(source)) ? "_self" : "_blank"
+              }
             >
               {showIcon ? <URLIcon url={source.url} /> : null}
               {imageURL || placeholderImage ? (

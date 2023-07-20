@@ -7,19 +7,7 @@ import { object } from "prop-types";
 
 import "./DocumentSuggestion.css";
 import { useBreakpoint } from "../useBreakpoint";
-
-const isSameOrigin = (url) => {
-  try {
-    const siteHost = new URL(window.location.href).hostname;
-    const urlHost = new URL(url).hostname;
-    if (siteHost === "docs.reactivesearch.io") return siteHost === urlHost;
-  } catch {
-    return false;
-  }
-};
-
-const getHref = (url) =>
-  url && url.match("/docs/") ? `https://docs.reactivesearch.io${url}` : url;
+import { isSameOrigin, resolveAbsoluteURL } from "../utils";
 
 export const DocumentSuggestion = ({ source }) => {
   const breadcrumbText = getBreadcrumbText(source.url);
@@ -27,8 +15,8 @@ export const DocumentSuggestion = ({ source }) => {
   const isMobileWidth = breakpointPoint === "xs" || breakpointPoint === "sm";
   return (
     <a
-      href={getHref(source.url)}
-      target={isSameOrigin(getHref(source.url)) ? "_self" : "_blank"}
+      href={resolveAbsoluteURL(source) || "#"}
+      target={isSameOrigin(resolveAbsoluteURL(source)) ? "_self" : "_blank"}
       rel="noreferrer"
       className={`suggestion ${styles.suggestion}`}
     >
