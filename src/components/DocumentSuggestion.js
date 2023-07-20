@@ -6,9 +6,12 @@ import { getBreadcrumbText } from "../getBreadcrumbText";
 import { object } from "prop-types";
 
 import "./DocumentSuggestion.css";
+import { useBreakpoint } from "../useBreakpoint";
 
 export const DocumentSuggestion = ({ source }) => {
   const breadcrumbText = getBreadcrumbText(source.url);
+  const breakpointPoint = useBreakpoint();
+  const isMobileWidth = breakpointPoint === "xs" || breakpointPoint === "sm";
   return (
     <div className={`suggestion ${styles.suggestion}`}>
       <div className="row">
@@ -16,13 +19,17 @@ export const DocumentSuggestion = ({ source }) => {
           <div
             className={`p-2 me-3 rounded bg-white suggestionIcon ${styles.suggestionIcon}`}
           >
-            <URLIcon url={source.url} style={{ marginBottom: 0 }} size={30} />
+            <URLIcon
+              url={source.url}
+              style={{ marginBottom: 0 }}
+              size={isMobileWidth ? 25 : 30}
+            />
           </div>
           <div className="flex-1 w-75">
             <div title={source.value} className={styles.suggestionTitle}>
               {source.title || source.meta_title}
             </div>
-            {breadcrumbText && (
+            {breadcrumbText && isMobileWidth ? null : (
               <div>
                 <span
                   title={breadcrumbText}
