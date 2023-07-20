@@ -50,3 +50,6 @@ pre {
   width: 100%;
   font-size: 1.5rem;
 }
+.bootstrap .flex-1 {
+  flex: 1;
+}

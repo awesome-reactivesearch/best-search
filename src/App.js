@@ -92,6 +92,7 @@ function Main() {
               weight: 6,
             },
           ]}
+          react={{and: [TABS_COMPONENT_ID]}}
           componentId={SEARCH_COMPONENT_ID}
           className={styles.searchBox}
           highlight

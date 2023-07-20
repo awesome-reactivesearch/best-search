@@ -12,32 +12,32 @@ export const DocumentSuggestion = ({ source }) => {
   return (
     <div className={`suggestion ${styles.suggestion}`}>
       <div className="row">
-        <div className="d-flex justify-content-center align-items-center col col-3 col-md-1">
+        <div className="d-flex justify-content-center align-items-center">
           <div
-            className={`p-3 rounded bg-white suggestionIcon ${styles.suggestionIcon}`}
+            className={`p-2 me-3 rounded bg-white suggestionIcon ${styles.suggestionIcon}`}
           >
-            <URLIcon url={source.url} style={{ margin: "auto" }} size={30} />
+            <URLIcon url={source.url} style={{ marginBottom: 0 }} size={30} />
           </div>
-        </div>
-        <div className="col col-9 col-md-11">
-          <div title={source.value} className={styles.suggestionTitle}>
-            {source.value || source.title}
-          </div>
-          {breadcrumbText && (
-            <div>
-              <span
-                title={breadcrumbText}
-                className={styles.suggestionBreadcrumb}
-              >
-                {breadcrumbText}
-              </span>
+          <div className="flex-1 w-75">
+            <div title={source.value} className={styles.suggestionTitle}>
+              {source.title || source.meta_title}
             </div>
-          )}
-          <div
-            title={source.meta_description || source.heading}
-            className={styles.suggestionDescription}
-          >
-            {source.meta_description || source.heading}
+            {breadcrumbText && (
+              <div>
+                <span
+                  title={breadcrumbText}
+                  className={styles.suggestionBreadcrumb}
+                >
+                  {breadcrumbText}
+                </span>
+              </div>
+            )}
+            <div
+              title={source.meta_description}
+              className={styles.suggestionDescription}
+            >
+              {source.meta_description}
+            </div>
           </div>
         </div>
       </div>
