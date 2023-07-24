@@ -99,7 +99,7 @@ function Main() {
           className={styles.searchBox}
           highlight
           URLParams
-          size={5}
+          size={30}
           showClear
           enableRecentSuggestions
           recentSuggestionsConfig={{

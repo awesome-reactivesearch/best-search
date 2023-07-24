@@ -1,6 +1,6 @@
 export const isSameOrigin = (url) => {
   try {
-    const siteHost = new URL("https://docs.reactivesearch.io/").hostname;
+    const siteHost = new URL(window.location.href).hostname;
     const urlHost = new URL(url).hostname;
     if (siteHost === "docs.reactivesearch.io") return siteHost === urlHost;
   } catch {
@@ -15,11 +15,17 @@ export function resolveAbsoluteURL(source) {
   return source.url;
 }
 
+export function removeHashFromURL(url) {
+  if (url) {
+    return url.replace(/#.*$/, "");
+  }
+}
+
 export function filterDuplicatesByTitle(array) {
   const uniqueValues = {};
   return array.filter((item) => {
-    if (!uniqueValues[item._source.title]) {
-      uniqueValues[item._source.title] = true;
+    if (!uniqueValues[removeHashFromURL(item._source.url)]) {
+      uniqueValues[removeHashFromURL(item._source.url)] = true;
       return true;
     }
     return false;
