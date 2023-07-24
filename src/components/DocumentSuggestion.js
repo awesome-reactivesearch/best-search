@@ -64,14 +64,14 @@ export const DocumentSuggestion = ({ source }) => {
               title={source.meta_description}
               className={styles.suggestionDescription}
             >
-              {source.tokens ? (
+              {source.meta_description ? (
+                source.meta_description
+              ) : (
                 <div
                   dangerouslySetInnerHTML={{
                     __html: sanitizeHTMLAndCombineStrings(source.tokens),
                   }}
                 />
-              ) : (
-                source.meta_description
               )}
             </div>
           </div>
