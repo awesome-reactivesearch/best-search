@@ -31,9 +31,15 @@ export const DocumentSuggestion = ({ source }) => {
   return (
     <a
       href={resolveAbsoluteURL(source) || "#"}
-      target={isSameOrigin(resolveAbsoluteURL(source)) ? "_self" : "_blank"}
       rel="noreferrer"
       className={`suggestion ${styles.suggestion}`}
+      onClick={(e) => {
+        e.preventDefault();
+        window.open(
+          resolveAbsoluteURL(source) || "#",
+          isSameOrigin(resolveAbsoluteURL(source)) ? "_self" : "_blank"
+        );
+      }}
     >
       <div className="row">
         <div className="d-flex justify-content-center align-items-center">

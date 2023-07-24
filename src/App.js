@@ -115,7 +115,6 @@ function Main() {
           onValueSelected={(v) =>
             v ? setSearchQueryFinal(v) : setSearchQueryFinal("")
           }
-          renderNoSuggestion="No suggestions found."
           renderItem={(suggestion) => {
             const suggestionType = suggestion._suggestion_type;
 
