@@ -48,7 +48,6 @@
 .suggestionTitle {
   text-transform: uppercase;
   font-weight: bold;
-  width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
