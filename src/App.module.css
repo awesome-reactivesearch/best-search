@@ -46,6 +46,7 @@
   line-height: 3.5rem !important;
   font-size: 1.3rem !important;
   font-family: "Raleway", sans-serif;
+  resize: none;
 }
 .searchBox textarea::placeholder {
   color: lightslategray;
