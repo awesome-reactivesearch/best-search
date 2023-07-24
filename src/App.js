@@ -22,6 +22,7 @@ import { transformRequest } from "./transformRequest";
 import { Drawer } from "./components/Drawer";
 import { DocumentSuggestion } from "./components/DocumentSuggestion";
 import { Suggestion } from "./components/Suggestion";
+import { transformResponse } from "./transformResponse";
 
 function Main() {
   // When URL Params are set we should set the default value for tabs and search component.
@@ -52,6 +53,7 @@ function Main() {
       app="unified-reactivesearch-web-data"
       url="https://a03a1cb71321:75b6603d-9456-4a5a-af6b-a487b309eb61@appbase-demo-ansible-abxiydt-arc.searchbase.io"
       transformRequest={transformRequest}
+      transformResponse={transformResponse}
     >
       <Container>
         <img
@@ -103,6 +105,8 @@ function Main() {
           recentSuggestionsConfig={{
             index: "unified-reactivesearch-web-data",
             sectionLabel: "Recent",
+            minChars: 5,
+            size: 3,
           }}
           placeholder="Explore Reactivesearch..."
           showVoiceSearch

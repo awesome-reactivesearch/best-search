@@ -14,3 +14,14 @@ export function resolveAbsoluteURL(source) {
   }
   return source.url;
 }
+
+export function filterDuplicatesByTitle(array) {
+  const uniqueValues = {};
+  return array.filter((item) => {
+    if (!uniqueValues[item._source.title]) {
+      uniqueValues[item._source.title] = true;
+      return true;
+    }
+    return false;
+  });
+}
