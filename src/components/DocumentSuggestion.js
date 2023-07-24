@@ -9,6 +9,21 @@ import "./DocumentSuggestion.css";
 import { useBreakpoint } from "../useBreakpoint";
 import { isSameOrigin, resolveAbsoluteURL } from "../utils";
 
+function sanitizeHTMLAndCombineStrings(inputStrings) {
+  // Combine all input strings into a single string
+  const combinedString = inputStrings.join(" ");
+  // Remove HTML tags using a regular expression
+  const withoutTags = combinedString.replace(/<[^>]+>/g, "");
+
+  // Remove multiple consecutive spaces and newlines
+  let finalString = withoutTags.replace(/\s{2,}/g, " ").trim();
+
+  if (finalString && finalString.startsWith("#")) {
+    finalString = finalString.split("&gt;").slice(1).join("&gt;");
+  }
+  return finalString;
+}
+
 export const DocumentSuggestion = ({ source }) => {
   const breadcrumbText = getBreadcrumbText(source.url);
   const breakpointPoint = useBreakpoint();
@@ -49,7 +64,15 @@ export const DocumentSuggestion = ({ source }) => {
               title={source.meta_description}
               className={styles.suggestionDescription}
             >
-              {source.meta_description}
+              {source.tokens ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHTMLAndCombineStrings(source.tokens),
+                  }}
+                />
+              ) : (
+                source.meta_description
+              )}
             </div>
           </div>
         </div>
