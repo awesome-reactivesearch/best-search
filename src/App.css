@@ -29,6 +29,9 @@
   background: none;
   color: var(--bs-primary);
 }
+.bootstrap .bestSearchPagination a:nth-child(1) {
+  display: none;
+}
 .bootstrap .bestSearchPagination:nth-last-child(1) {
   margin-bottom: 4rem;
 }
